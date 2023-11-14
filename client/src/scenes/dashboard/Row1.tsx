@@ -1,17 +1,11 @@
 import DashboardBox from '@/components/DashboardBox'
 import { useGetKpisQuery } from '@/state/api';
-import React from 'react'
 import {
   ResponsiveContainer,
   CartesianGrid,
   AreaChart,
-  BarChart,
-  Bar,
-  LineChart,
   XAxis,
   YAxis,
-  Legend,
-  Line,
   Tooltip,
   Area,
 } from "recharts";
@@ -20,6 +14,17 @@ type Props = {}
 
 const Row1 = (props: Props) => {
   const { data } = useGetKpisQuery();
+  const revenueExpenses = useMemo(() => {
+    return (
+      data &&
+      data[0].monthlyData.map(({month, revenue, expenses}) =>{
+        return {
+          name: month.substring(0, 3)
+        }
+      })
+    )
+  }, [data]);
+
   return (
     <>
     <DashboardBox gridArea="a">
